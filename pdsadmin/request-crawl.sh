@@ -12,8 +12,8 @@ if [[ "${RELAY_HOSTS}" == "" ]]; then
 fi
 
 if [[ "${RELAY_HOSTS}" == "" ]]; then
-  echo "ERROR: missing RELAY HOST parameter." >/dev/stderr
-  echo "Usage: $0 <RELAY HOST>[,<RELAY HOST>,...]" >/dev/stderr
+  echo "ERROR: missing RELAY HOST parameter." >1>&2
+  echo "Usage: $0 <RELAY HOST>[,<RELAY HOST>,...]" >1>&2
   exit 1
 fi
 
