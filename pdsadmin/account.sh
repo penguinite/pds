@@ -57,8 +57,8 @@ elif [[ "${SUBCOMMAND}" == "create" ]]; then
   fi
 
   if [[ "${EMAIL}" == "" || "${HANDLE}" == "" ]]; then
-    echo "ERROR: missing EMAIL and/or HANDLE parameters." >/dev/stderr
-    echo "Usage: $0 ${SUBCOMMAND} <EMAIL> <HANDLE>" >/dev/stderr
+    echo "ERROR: missing EMAIL and/or HANDLE parameters." 1>&2
+    echo "Usage: $0 ${SUBCOMMAND} <EMAIL> <HANDLE>" 1>&2
     exit 1
   fi
 
@@ -76,8 +76,8 @@ elif [[ "${SUBCOMMAND}" == "create" ]]; then
   DID="$(echo $RESULT | jq --raw-output '.did')"
   if [[ "${DID}" != did:* ]]; then
     ERR="$(echo ${RESULT} | jq --raw-output '.message')"
-    echo "ERROR: ${ERR}" >/dev/stderr
-    echo "Usage: $0 ${SUBCOMMAND} <EMAIL> <HANDLE>" >/dev/stderr
+    echo "ERROR: ${ERR}" 1>&2
+    echo "Usage: $0 ${SUBCOMMAND} <EMAIL> <HANDLE>" 1>&2
     exit 1
   fi
 
@@ -98,14 +98,14 @@ elif [[ "${SUBCOMMAND}" == "delete" ]]; then
   DID="${2:-}"
 
   if [[ "${DID}" == "" ]]; then
-    echo "ERROR: missing DID parameter." >/dev/stderr
-    echo "Usage: $0 ${SUBCOMMAND} <DID>" >/dev/stderr
+    echo "ERROR: missing DID parameter." 1>&2
+    echo "Usage: $0 ${SUBCOMMAND} <DID>" 1>&2
     exit 1
   fi
 
   if [[ "${DID}" != did:* ]]; then
-    echo "ERROR: DID parameter must start with \"did:\"." >/dev/stderr
-    echo "Usage: $0 ${SUBCOMMAND} <DID>" >/dev/stderr
+    echo "ERROR: DID parameter must start with \"did:\"." 1>&2
+    echo "Usage: $0 ${SUBCOMMAND} <DID>" 1>&2
     exit 1
   fi
 
@@ -130,14 +130,14 @@ elif [[ "${SUBCOMMAND}" == "takedown" ]]; then
   TAKEDOWN_REF="$(date +%s)"
 
   if [[ "${DID}" == "" ]]; then
-    echo "ERROR: missing DID parameter." >/dev/stderr
-    echo "Usage: $0 ${SUBCOMMAND} <DID>" >/dev/stderr
+    echo "ERROR: missing DID parameter." 1>&2
+    echo "Usage: $0 ${SUBCOMMAND} <DID>" 1>&2
     exit 1
   fi
 
   if [[ "${DID}" != did:* ]]; then
-    echo "ERROR: DID parameter must start with \"did:\"." >/dev/stderr
-    echo "Usage: $0 ${SUBCOMMAND} <DID>" >/dev/stderr
+    echo "ERROR: DID parameter must start with \"did:\"." 1>&2
+    echo "Usage: $0 ${SUBCOMMAND} <DID>" 1>&2
     exit 1
   fi
 
@@ -169,14 +169,14 @@ elif [[ "${SUBCOMMAND}" == "untakedown" ]]; then
   DID="${2:-}"
 
   if [[ "${DID}" == "" ]]; then
-    echo "ERROR: missing DID parameter." >/dev/stderr
-    echo "Usage: $0 ${SUBCOMMAND} <DID>" >/dev/stderr
+    echo "ERROR: missing DID parameter." 1>&2
+    echo "Usage: $0 ${SUBCOMMAND} <DID>" 1>&2
     exit 1
   fi
 
   if [[ "${DID}" != did:* ]]; then
-    echo "ERROR: DID parameter must start with \"did:\"." >/dev/stderr
-    echo "Usage: $0 ${SUBCOMMAND} <DID>" >/dev/stderr
+    echo "ERROR: DID parameter must start with \"did:\"." 1>&2
+    echo "Usage: $0 ${SUBCOMMAND} <DID>" 1>&2
     exit 1
   fi
 
@@ -207,14 +207,14 @@ elif [[ "${SUBCOMMAND}" == "reset-password" ]]; then
   PASSWORD="$(openssl rand -base64 30 | tr -d "=+/" | cut -c1-24)"
 
   if [[ "${DID}" == "" ]]; then
-    echo "ERROR: missing DID parameter." >/dev/stderr
-    echo "Usage: $0 ${SUBCOMMAND} <DID>" >/dev/stderr
+    echo "ERROR: missing DID parameter." 1>&2
+    echo "Usage: $0 ${SUBCOMMAND} <DID>" 1>&2
     exit 1
   fi
 
   if [[ "${DID}" != did:* ]]; then
-    echo "ERROR: DID parameter must start with \"did:\"." >/dev/stderr
-    echo "Usage: $0 ${SUBCOMMAND} <DID>" >/dev/stderr
+    echo "ERROR: DID parameter must start with \"did:\"." 1>&2
+    echo "Usage: $0 ${SUBCOMMAND} <DID>" 1>&2
     exit 1
   fi
 
@@ -229,6 +229,6 @@ elif [[ "${SUBCOMMAND}" == "reset-password" ]]; then
   echo
 
 else
-  echo "Unknown subcommand: ${SUBCOMMAND}" >/dev/stderr
+  echo "Unknown subcommand: ${SUBCOMMAND}" 1>&2
   exit 1
 fi
